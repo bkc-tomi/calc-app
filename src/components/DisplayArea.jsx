@@ -1,9 +1,9 @@
 import React from 'react';
 
-const DisplayArea = () => {
+const DisplayArea = (props) => {
   return (
     <div className="display-area">
-      
+      {props.showInputValue}
     </div>
   );
 }

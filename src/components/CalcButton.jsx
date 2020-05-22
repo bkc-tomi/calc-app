@@ -4,13 +4,17 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
   btn: {
-    backgroundColor: "#212121",
-    width: "100%",
-    height: "100%",
+    backgroundColor: "linear-gradient(145deg, #b1f1c8, #95cba8)",
+    width: "90%",
+    height: "80%",
     color: "#FFF",
-    fontSize: "24px",
-    "&:hover": {
-      backgroundColor: "#414141",
+    fontSize: "22px",
+    border: "1px solid #FFF",
+    boxShadow: "2px 2px 10px #8cbf9f, -2px -2px 10px #beffd7",
+    transition: "500ms ease",
+    "&:active": {
+      background: "linear-gradient(145deg, #95cba8, #b1f1c8)",
+      transition: "500ms ease",
     }
   }
 }));
@@ -19,7 +23,11 @@ const CalcButton = (props) => {
   const classes = useStyles();
   return (
     <div className={props.cName}>
-      <Button className={classes.btn} variant="outlined" color="primary">
+      <Button
+        className={classes.btn}
+        disableRipple
+        onClick={() => props.btnClick(props.value)}
+      >
         {props.value}
       </Button>
     </div>
