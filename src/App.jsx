@@ -1,34 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import "./assets/styles.css";
-
+import btnSet from "./assets/btnSet.json";
 import {DisplayArea, ButtonArea} from "./components/index";
 
 
 const App = () => {
-  const [btns, setBtns] = useState([
-    {value: 7, able: true, type: "number"},
-    {value: 8, able: true, type: "number"},
-    {value: 9, able: true, type: "number"},
-    {value: "÷", able: false, type: "function"},
-    {value: 4, able: true, type: "number"},
-    {value: 5, able: true, type: "number"},
-    {value: 6, able: true, type: "number"},
-    {value: "×", able: false, type: "function"},
-    {value: 1, able: true, type: "number"},
-    {value: 2, able: true, type: "number"},
-    {value: 3, able: true, type: "number"},
-    {value: "-", able: false, type: "function"},
-    {value: "AC", able: false, type: "clear"},
-    {value: 0, able: true, type: "number"},
-    {value: "=", able: false, type: "function"},
-    {value: "+", able: false, type: "function"},
-  ]);
-
+  const [btns, setBtns] = useState(btnSet);
   const [display, setDisplay] = useState("");
+  const [displayList, setDisplayList] = useState([]);
   const [calcable, setCalcable] = useState(false);
   const [stringNumber, setStringNumber] = useState("");
   const [number , setNumber] = useState(0);
-  const [operator, setOperator] = useState("");
+  const [operator, setOperator] = useState("+");
   
   const changeBtnState = (value, bool) => {
     const bs = btns;
@@ -82,43 +65,49 @@ const App = () => {
     setBtns(bs);
   }
 
-  const calc = () => {
+  const calc = (number, stringNumber, operator) => {
     let ans = 0;
     switch (operator) {
       case "+":
         ans = number + parseInt(stringNumber);
-        setDisplay(display + "=" + ans.toString());
         break;
       case "-":
         ans = number - parseInt(stringNumber);
-        setDisplay(display + "=" + ans.toString());
         break;
       case "×":
         ans = number * parseInt(stringNumber);
-        setDisplay(display + "=" + ans.toString());
         break;
       case "÷":
         ans = number / parseInt(stringNumber);
-        setDisplay(display + "=" + ans.toString());
         break;
       default:
         break;
     }
+    return ans;
+  }
+
+  const addDisplayList = () => {
+    const list = displayList;
+    list.push(display);
+    setDisplayList(list);
   }
 
   const btnClick = (value, type) => {
     setDisplay(display + value.toString());
     if (value === "AC") {
       setDisplay("");
-      initBtnsState("number", true);
+      addDisplayList();
+      initBtnsState("number");
       setCalcable(false);
       setStringNumber("");
       setNumber(0);
+      setOperator("+");
     }
     if (value === "=") {
       ableJustAC();
       setCalcable(false);
-      calc();
+      const ans = calc(number, stringNumber, operator);
+      setDisplay(display + "=" + ans.toString());
     }
     if (["÷", "+", "-", "×"].includes(value)) {
       unableFunction();
@@ -137,9 +126,18 @@ const App = () => {
     }
   }
 
+  // componentDidUpdate
+  useEffect(() => {
+    const scrollArea = document.getElementById("scroll-area");
+    if (scrollArea) {
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+    }
+  });
+  
   return (
     <div className="calc-area">
-      <DisplayArea showContents={display}/>
+      <h1>ぷにぷに電卓</h1>
+      <DisplayArea showList={displayList} showCalc={display}/>
       <ButtonArea btns={btns} btnClick={btnClick}/>
     </div>
   );

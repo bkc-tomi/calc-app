@@ -1,0 +1,18 @@
+[
+  {"value": 7, "able": true, "type": "number"},
+  {"value": 8, "able": true, "type": "number"},
+  {"value": 9, "able": true, "type": "number"},
+  {"value": "÷", "able": false, "type": "function"},
+  {"value": 4, "able": true, "type": "number"},
+  {"value": 5, "able": true, "type": "number"},
+  {"value": 6, "able": true, "type": "number"},
+  {"value": "×", "able": false, "type": "function"},
+  {"value": 1, "able": true, "type": "number"},
+  {"value": 2, "able": true, "type": "number"},
+  {"value": 3, "able": true, "type": "number"},
+  {"value": "-", "able": false, "type": "function"},
+  {"value": "AC", "able": false, "type": "clear"},
+  {"value": 0, "able": true, "type": "number"},
+  {"value": "=", "able": false, "type": "function"},
+  {"value": "+", "able": false, "type": "function"}
+]
