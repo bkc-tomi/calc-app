@@ -4,15 +4,10 @@ import {CalcButton} from "./index";
 const ButtonArea = (props) => {
   return (
     <div className="button-area">
-      {props.btn.map((buttonValue, index) => {
-        let cName = "";
-        if (buttonValue === "=") {
-          cName = "large-button";
-        }
+      {props.btns.map((btn, index) => {
         return (
           <CalcButton
-            cName={cName}
-            value = {buttonValue}
+            btn={btn}
             key={index}
             btnClick={props.btnClick}
           />

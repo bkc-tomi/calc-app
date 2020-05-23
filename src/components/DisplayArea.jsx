@@ -3,7 +3,7 @@ import React from 'react';
 const DisplayArea = (props) => {
   return (
     <div className="display-area">
-      {props.showInputValue}
+      {props.showContents}
     </div>
   );
 }
